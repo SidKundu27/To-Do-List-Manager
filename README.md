@@ -1,4 +1,4 @@
-# To Do APP
+# To-Do List Manager
 A simple todo list project that allows users to create and manage their daily tasks. 
 
 ## Getting Started
