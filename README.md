@@ -36,7 +36,3 @@ To use the app, follow these steps:
 ## Backend
 
 This project uses Express.js, a popular web framework for Node.js, to handle the backend functionality. Express.js makes it easy to build scalable web applications and provides a robust set of features for building RESTful APIs.
-
-## License
-
-This project is licensed under the MIT License.
