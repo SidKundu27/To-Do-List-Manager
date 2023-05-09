@@ -1,5 +1,5 @@
 # To Do APP
-A simple todo list project that allows users to create and manage their daily tasks. Using 
+A simple todo list project that allows users to create and manage their daily tasks. 
 
 ## Getting Started
 To run this project, you'll need to have Node.js and npm installed on your computer. Follow the steps below to get started:
