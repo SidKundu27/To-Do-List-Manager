@@ -7,18 +7,18 @@ const app = express()
 // let notes = []
 let notes = [
   {
-    note: "testing123",
-    done: false,
+    note: "work on a side project",
+    completed: false,
     id: 1
   },
   {
     note: "take the dog on a walk",
-    done: false,
+    completed: true,
     id: 2
   },
   {
     note: "eat some food",
-    done: false,
+    completed: false,
     id: 3
   }
 ]
@@ -44,6 +44,20 @@ app.post('/api/addNote', (req, res) => {
 
   notes.push(newNote);
   res.status(200).send({ notes });
+});
+
+app.post('/api/taskComplete', (req, res) => {
+  const id = req.body.id;
+
+  var index = notes.findIndex(x => x.id === id);
+  if (index !== -1) {
+    // Update array
+    notes[index].completed = !notes[index].completed
+    res.status(200).send({ notes });
+  } else {
+    res.status(404).send('Error: Element Not Found');
+  }
+
 });
 
 app.delete('/api/deleteNote', (req, res) => {
