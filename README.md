@@ -30,7 +30,7 @@ To use the app, follow these steps:
 1. Open your web browser and go to `http://localhost:3000`
 2. Click on the 'Add Task' button to create a new task.
 3. Enter the task details in the form fields and click 'Save'.
-4. To mark a task as complete, click the checkbox next to the task. (this feature is not yet implemented).
+4. To mark a task as complete, click the checkbox next to the task.
 5. To delete a task, click the garbage icon next to the task
 
 ## Backend
