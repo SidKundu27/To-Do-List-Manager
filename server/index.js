@@ -7,19 +7,22 @@ const app = express()
 // let notes = []
 let notes = [
   {
+    id: 1,
     note: "work on a side project",
     completed: false,
-    id: 1
+    archived: false
   },
   {
+    id: 2,
     note: "take the dog on a walk",
     completed: true,
-    id: 2
+    archived: false
   },
   {
+    id: 3,
     note: "eat some food",
     completed: false,
-    id: 3
+    archived: true
   }
 ]
 
@@ -53,6 +56,20 @@ app.post('/api/taskComplete', (req, res) => {
   if (index !== -1) {
     // Update array
     notes[index].completed = !notes[index].completed
+    res.status(200).send({ notes });
+  } else {
+    res.status(404).send('Error: Element Not Found');
+  }
+
+});
+
+app.post('/api/taskArchive', (req, res) => {
+  const id = req.body.id;
+
+  var index = notes.findIndex(x => x.id === id);
+  if (index !== -1) {
+    // Update array
+    notes[index].archived = !notes[index].archived
     res.status(200).send({ notes });
   } else {
     res.status(404).send('Error: Element Not Found');

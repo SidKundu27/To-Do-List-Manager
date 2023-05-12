@@ -1,7 +1,7 @@
 import React from 'react';
 import deleteIcon from './delete.png';
 
-const Elements = ({ todos, setTodos }) => {
+const Elements = ({ todos, filter, setTodos }) => {
   const handleDelete = async (id) => {
     const response = await fetch("/api/deleteNote", {
       method: "DELETE",
@@ -34,18 +34,44 @@ const Elements = ({ todos, setTodos }) => {
     }
   };
 
+  const handleArchive = async (id) => {
+    const response = await fetch("/api/taskArchive", {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({id}),
+    })
+
+    if (response.status === 200){
+      const jsonResponse = await response.json();
+      setTodos(jsonResponse.notes)
+    }
+  }
+
+  const filteredTodos = todos.filter((element) => {
+    if (filter === "completed") {
+      return element.completed;
+    } else if (filter === "archived") {
+      return element.archived;
+    } else {
+      return !element.archived;
+    }
+  });
+
   return (
     <div className='todos-List'>
-      {todos.map((element, index) => (
+      {filteredTodos.map((element, index) => (
         <div 
           className='todo-element'
-          style={{
-            textDecoration: element.completed ? "line-through" : "none",
-            opacity: element.completed ? "0.5" : "1"
-          }}
+          style={{opacity: element.completed ? "0.5" : "1"}}
           key={index}
         >
-          <div className='todo-name' >
+          <div 
+            className='todo-name' 
+            style={{textDecoration: element.completed ? "line-through" : "none"}}
+          >
             <input 
               className='todo-check' 
               type="checkbox" onChange={() => handleSelect(element.id)} 
@@ -53,17 +79,28 @@ const Elements = ({ todos, setTodos }) => {
             />
             <li>{element.note}</li>
           </div>
-          <button style={{padding: "0 1px"}} onClick={() => handleDelete(element.id)}>
-            <img
-              className='delete'
-              src={deleteIcon} 
-              alt='Delete'
-            />
-          </button>
+          <div className='todo-buttons'>
+            <button 
+              onClick={() => handleArchive(element.id)}
+              style={{textDecoration: element.archived ? "line-through" : "none"}}
+              className='archive'  
+            >
+              Archive
+            </button>
+            <button
+              onClick={() => handleDelete(element.id)}
+              className='delete-button'
+            >
+              <img
+                className='delete'
+                src={deleteIcon} 
+                alt='Delete'
+              />
+            </button>
+          </div>
+          
         </div>
       ))}
-
-
     </div>
 
   )
